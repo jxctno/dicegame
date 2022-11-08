@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Game</title>
+</head>
+
+<style type="text/css">
+    :root {
+        --number-text-size: 14px;
+        --number-text-color: black;
+    }
+
+    body {
+        background-color: rgb(172, 255, 227);
+    }
+
+    table {
+        margin: 0 auto;
+    }
+
+    .gameboard {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+
+    .gameboard td {
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        font-family: Arial, sans-serif;
+        font-size: var(--number-text-size);
+        overflow: hidden;
+        padding: 9px 9px;
+        word-break: normal;
+    }
+
+    .gameboard th {
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        font-family: Arial, sans-serif;
+        font-size: var(--number-text-size);
+        font-weight: normal;
+        overflow: hidden;
+        padding: 9px 9px;
+        word-break: normal;
+    }
+
+    .gameboard .yellow-bg {
+        background-color: #ffc702;
+        border:1px solid;
+        border-color: #000000;
+        font-family: "Arial Black", Gadget, sans-serif !important;
+        font-style: italic;
+        font-weight: bold;
+        text-align: center;
+        vertical-align: middle
+    }
+
+    .gameboard .green-bg {
+        background-color: #34ff34;
+        font-family: "Arial Black", Gadget, sans-serif !important;
+        font-style: italic;
+        font-weight: bold;
+        text-align: center;
+        vertical-align: middle
+    }
+
+    .green-bg,
+    .yellow-bg {
+        padding: 2rem;
+    }
+
+    .dice {
+        background-color: #ffffff;
+        border: 3px black solid;
+        border-radius: 10px;
+        width: 75px;
+        height: 75px;
+        font-weight: bold;
+        font-size: 50px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .dicetotal {
+        text-align: center;
+        vertical-align: middle;
+        display: inline-block;
+        background-color: #ffffff;
+        border: 3px black solid;
+        border-radius: 10px;
+        width: 75px;
+        height: 75px;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+
+
+
+    .container {
+        height: 90vh;
+        /* margin: 7rem; */
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        margin-top: 515px;
+        height: 1px;
+        width: 1px;
+        /* right: -290px; */
+        position: absolute;
+    }
+
+    .cell {
+        color: white;
+        font-size: 1.5rem;
+        text-align: center;
+
+    }
+</style>
+<script>
+    var activePlayer = 1
+
+    let player1 ='<span id="player1">p1</span>';
+    let player2 ='<span id="player2">p2</span>';
+
+    let player1Score = 1;
+    let player2Score = 1;
+
+
+
+    function diceroll() {
+        var dice1 = document.getElementById("dice1");
+        var dice2 = document.getElementById("dice2");
+        let roll1 = Math.floor(Math.random() * 6) + 1;
+        let roll2 = Math.floor(Math.random() * 6) + 1;
+        let total = roll1 + roll2;
+        dice1.innerText = roll1
+        dice2.innerText = roll2
+
+        document.getElementById("dicetotal").innerText = total
+
+        document.getElementById("player" + activePlayer + "score").value += total;
+    }
+
+
+    function movePlayer() {
+        player = document.getElementById(`player$active`)
+    }
+</script>
+
+
+<body>
+    <div id="gameboard">
+        <table class="gameboard">
+            <thead>
+                <tr>
+                    <th class="yellow-bg" id="space1">1</th>
+                    <th class="green-bg" id="space2">2</th>
+                    <th class="yellow-bg" id="space3">3</th>
+                    <th class="green-bg" id="space4">4</th>
+                    <th class="yellow-bg" id="space5">5</th>
+                    <th class="green-bg" id="space6">6</th>
+                    <th class="yellow-bg" id="space7">7</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="green-bg" id="space8">8</td>
+                    <td class="yellow-bg" id="space9">9</td>
+                    <td class="green-bg" id="space10">10</td>
+                    <td class="yellow-bg" id="space11">11</td>
+                    <td class="green-bg" id="space12">12</td>
+                    <td class="yellow-bg" id="space13">13</td>
+                    <td class="green-bg" id="space14">14</td>
+                </tr>
+                <tr>
+                    <td class="yellow-bg" id="space15">15</td>
+                    <td class="green-bg" id="space16">16</td>
+                    <td class="yellow-bg" id="space17">17</td>
+                    <td class="green-bg" id="space18">18</td>
+                    <td class="yellow-bg" id="space19">19</td>
+                    <td class="green-bg" id="space20">20</td>
+                    <td class="yellow-bg" id="space21">21</td>
+                </tr>
+                <tr>
+                    <td class="green-bg" id="space22">22</td>
+                    <td class="yellow-bg" id="space23">23</td>
+                    <td class="green-bg" id="space24">24</td>
+                    <td class="yellow-bg" id="space25">25</td>
+                    <td class="green-bg" id="space26">26</td>
+                    <td class="yellow-bg" id="space27">27</td>
+                    <td class="green-bg" id="space28">28</td>
+                </tr>
+                <tr>
+                    <td class="yellow-bg" id="space29">29</td>
+                    <td class="green-bg" id="space30">30</td>
+                    <td class="yellow-bg" id="space31">31</td>
+                    <td class="green-bg" id="space32">32</td>
+                    <td class="yellow-bg" id="space33">33</td>
+                    <td class="green-bg" id="space34">34</td>
+                    <td class="yellow-bg" id="space35">35</td>
+                </tr>
+                <tr>
+                    <td class="green-bg" id="space36">36</td>
+                    <td class="yellow-bg" id="space37">37</td>
+                    <td class="green-bg" id="space38">38</td>
+                    <td class="yellow-bg" id="space39">39</td>
+                    <td class="green-bg" id="space40">40</td>
+                    <td class="yellow-bg" id="space41">41</td>
+                    <td class="green-bg" id="space42">42</td>
+                </tr>
+                <tr>
+                    <td class="yellow-bg" id="space43">43</td>
+                    <td class="green-bg" id="space44">44</td>
+                    <td class="yellow-bg" id="space45">45</td>
+                    <td class="green-bg" id="space46">46</td>
+                    <td class="yellow-bg" id="space47">47</td>
+                    <td class="green-bg" id="space48">48</td>
+                    <td class="yellow-bg" id="space49">49</td>
+                </tr>
+            </tbody>
+        </table>
+    
+    <div id="gamepieces">
+        <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" width="10px" id="player1">
+            <path d="M 4 2 C 4 3 3 4 2 4 C 1 4 0 3 0 2 C 0 1 1 0 2 0 C 3 0 4 1 4 2 Z">
+                <text x="2" y="2" fill="#0000ff">1</text>
+        </svg>
+        <br>
+        <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" width="10px" id="player2">
+            <path d="M 4 2 C 4 3 3 4 2 4 C 1 4 0 3 0 2 C 0 1 1 0 2 0 C 3 0 4 1 4 2 Z">
+                <text x="2" y="2" fill="#ff0000">2</text>
+        </svg>
+
+    </div>
+    <br><br><br><br>
+    <div style="background-color:#5e5ef1">
+        <table id="dice">
+            <tbody>
+                <tr>
+                    <td>
+                        <button class="dice" onclick="diceroll()" id="dice1">
+                            -
+                        </button>
+                    </td>
+                    <td>
+                        <button class="dice" onclick="diceroll()" id="dice2">
+                            -
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="dicetotal" style="font-size:30px; vertical-align: middle;">Total</span>
+                    </td>
+                    <td>
+                        <span id="dicetotal" style="font-size: 50px;" class="dicetotal"></span>
+                    </td>
+                </tr>'
+            </tbody>
+        </table>
+
+    </div>
+</body>
+
+</html>
