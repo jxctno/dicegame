@@ -145,7 +145,8 @@
 
         <div class="grid-child purple" style="text-align:centre">
             <h1>Player Turn</h1><br>
-            <span id="activePlayer">player</span>
+            <span id="activePlayer">1</span><br>
+            <button onclick="movePlayer()">Next</button>
         </div>
 
         <div class="grid-child blue">
@@ -332,15 +333,16 @@
     var activePlayer = 1
 
     const player1html = '<span class="player red">&nbsp;1&nbsp;</span>';
-    const player2hmtl = '<span class="player blue">&nbsp;2&nbsp;</span>';
+    const player2html = '<span class="player blue">&nbsp;2&nbsp;</span>';
 
     let player1Score = 1;
     let player2Score = 1;
 
     function play() {
-        alert("DICE GAME!!!! Player 1 First. Click the dice to roll. Player 1 goes first.")
-        document.getElementById("space1").innerHTML = player1html + player2html 
+        alert("DICE GAME!!!! Player 1 First. Click the dice to roll. Click Next for the next go. Player 1 goes first.")
+        document.getElementById("space1").innerHTML = player1html + player2html
     }
+
 
     function diceroll() {
         var dice1 = document.getElementById("dice1");
@@ -353,12 +355,15 @@
 
         document.getElementById("dicetotal").innerText = total
 
-        document.getElementById("player" + activePlayer + "score").value += total;
+        let score = Number(document.getElementById("player" + activePlayer + "score").innerHTML)
+        score += player1score
+        document.getElementById("player" + activePlayer + "score").innerHTML = String(score)
     }
 
     function movePlayer() {
         let activePlayer = "player" + document.getElementById("activePlayer").innerHTML;
-        let currentPlace = document.getElementById("player" + document.getElementById("activePlayer").innerHTML + "score").innerHTML;
+        console.log(activePlayer)
+        let currentPlace = Number(document.getElementById("player" + document.getElementById("activePlayer").innerHTML + "score").innerHTML);
 
         alert("Player " + document.getElementById("activePlayer").innerHTML + "needs to roll the dice");
 
