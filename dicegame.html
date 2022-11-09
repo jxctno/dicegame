@@ -6,137 +6,341 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dice Game</title>
+    <style type="text/css">
+        * {
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        tr {
+            height: 50px;
+        }
+
+        .topcell {
+            height: 50px
+        }
+
+        .tg {
+            border-collapse: collapse;
+            border-spacing: 0;
+
+        }
+
+        .tg td {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            overflow: hidden;
+            padding: 6px 20px;
+            word-break: normal;
+        }
+
+        .tg th {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            overflow: hidden;
+            padding: 6px 20px;
+            word-break: normal;
+        }
+
+        .tg .green-space {
+            background-color: #32cb00;
+            border-color: #32cb00;
+            text-align: center;
+            vertical-align: middle;
+            font-weight: bold;
+        }
+
+        .tg .yellow-space {
+            background-color: #ffc702;
+            border-color: #ffc702;
+            text-align: center;
+            vertical-align: middle;
+            font-weight: bold;
+        }
+
+
+        body {
+            background-color: rgb(172, 255, 227);
+        }
+
+        table {
+            margin: 0 auto;
+        }
+
+
+        .dice {
+            background-color: #ffffff;
+            border: 3px black solid;
+            border-radius: 10px;
+            width: 75px;
+            height: 75px;
+            font-weight: bold;
+            font-size: 50px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .dicetotal {
+            text-align: center;
+            vertical-align: middle;
+            display: inline-block;
+            background-color: #ffffff;
+            border: 3px black solid;
+            border-radius: 10px;
+            width: 75px;
+            height: 75px;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .grid-container1 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: 20px;
+        }
+
+        .grid-container2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 20px;
+        }
+
+        .player {
+            border: 0px solid;
+            border-radius: 12px;
+            padding: 5px 5px;
+            margin: 2px 2px 2px 2px;
+            color: #ffffff
+        }
+
+        .red {
+            background-color: red
+        }
+
+        .blue {
+            background-color: blue
+        }
+
+        .purple {
+            background-color: purple;
+        }
+
+        th {
+            width: 50px;
+
+        }
+    </style>
 </head>
 
-<style type="text/css">
-    :root {
-        --number-text-size: 14px;
-        --number-text-color: black;
-    }
+<body onload="play()">
+    <div class="grid-container1" id="Scores">
 
-    body {
-        background-color: rgb(172, 255, 227);
-    }
+        <div class="grid-child red">
+            <h1>Player 1</h1> <br>Score: <span id="player1Score">1</span>
+        </div>
 
-    table {
-        margin: 0 auto;
-    }
+        <div class="grid-child purple" style="text-align:centre">
+            <h1>Player Turn</h1><br>
+            <span id="activePlayer">player</span>
+        </div>
 
-    .gameboard {
-        border-collapse: collapse;
-        border-spacing: 0;
-    }
+        <div class="grid-child blue">
+            <h1>Player 2</h1><br>Score: <span id="player2Score">1</span>
+        </div>
 
+    </div>
+    <br><br>
+    <table width="100%">
+        <tr>
+            <td>
+                <div id="gameboard" class="grid-container2">
+                    <div class="grid-child">
+                        <table class="tg">
+                            <thead>
+                                <tr>
+                                    <th class="yellow-space">START</th>
+                                    <th class="green-space">2</th>
+                                    <th class="yellow-space">3</th>
+                                    <th class="green-space">4</th>
+                                    <th class="yellow-space">5</th>
+                                    <th class="green-space">6</th>
+                                    <th class="yellow-space">7</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="yellow-space" id="space1"></td>
+                                    <td class="green-space" id="space2"></td>
+                                    <td class="yellow-space" id="space3"></td>
+                                    <td class="green-space" id="space" 4></td>
+                                    <td class="yellow-space" id="space5"></td>
+                                    <td class="green-space" id="space6"></td>
+                                    <td class="yellow-space" id="space7"></td>
+                                </tr>
+                                <tr>
+                                    <td class="green-space">8</td>
+                                    <td class="yellow-space">9</td>
+                                    <td class="green-space">10</td>
+                                    <td class="yellow-space">11</td>
+                                    <td class="green-space">12</td>
+                                    <td class="yellow-space">13</td>
+                                    <td class="green-space">14</td>
+                                </tr>
+                                <tr>
+                                    <td class="green-space" id="space8"></td>
+                                    <td class="yellow-space" id="space9"></td>
+                                    <td class="green-space" id="space10"></td>
+                                    <td class="yellow-space" id="space11"></td>
+                                    <td class="green-space" id="space12"></td>
+                                    <td class="yellow-space" id="space13"></td>
+                                    <td class="green-space" id="space14"></td>
+                                </tr>
+                                <tr>
+                                    <td class="yellow-space">15</td>
+                                    <td class="green-space">16</td>
+                                    <td class="yellow-space">17</td>
+                                    <td class="green-space">18</td>
+                                    <td class="yellow-space">19</td>
+                                    <td class="green-space">20</td>
+                                    <td class="yellow-space">21</td>
+                                </tr>
+                                <tr>
+                                    <td class="yellow-space" id="space15"></td>
+                                    <td class="green-space" id="space16"></td>
+                                    <td class="yellow-space" id="space17"></td>
+                                    <td class="green-space" id="space18"></td>
+                                    <td class="yellow-space" id="space19"></td>
+                                    <td class="green-space" id="space20"></td>
+                                    <td class="yellow-space" id="space21"></td>
+                                </tr>
+                                <tr>
+                                    <td class="green-space">22</td>
+                                    <td class="yellow-space">23</td>
+                                    <td class="green-space">24</td>
+                                    <td class="yellow-space">25</td>
+                                    <td class="green-space">26</td>
+                                    <td class="yellow-space">27</td>
+                                    <td class="green-space">28</td>
+                                </tr>
+                                <tr>
+                                    <td class="green-space" id="space22"></td>
+                                    <td class="yellow-space" id="space23"></td>
+                                    <td class="green-space" id="space24"></td>
+                                    <td class="yellow-space" id="space25"></td>
+                                    <td class="green-space" id="space26"></td>
+                                    <td class="yellow-space" id="space27"></td>
+                                    <td class="green-space" id="space28"></td>
+                                </tr>
+                                <tr>
+                                    <td class="yellow-space">29</td>
+                                    <td class="green-space">30</td>
+                                    <td class="yellow-space">31</td>
+                                    <td class="green-space">32</td>
+                                    <td class="yellow-space">33</td>
+                                    <td class="green-space">34</td>
+                                    <td class="yellow-space">35</td>
+                                </tr>
+                                <tr>
+                                    <td class="yellow-space" id="space29"></td>
+                                    <td class="green-space" id="space30"></td>
+                                    <td class="yellow-space" id="space31"></td>
+                                    <td class="green-space" id="space32"></td>
+                                    <td class="yellow-space" id="space33"></td>
+                                    <td class="green-space" id="space34"></td>
+                                    <td class="yellow-space" id="space35"></td>
+                                </tr>
+                                <tr>
+                                    <td class="green-space">36</td>
+                                    <td class="yellow-space">37</td>
+                                    <td class="green-space">38</td>
+                                    <td class="yellow-space">39</td>
+                                    <td class="green-space">40</td>
+                                    <td class="yellow-space">41</td>
+                                    <td class="green-space">42</td>
+                                </tr>
+                                <tr>
+                                    <td class="green-space" id="space36"></td>
+                                    <td class="yellow-space" id="space37"></td>
+                                    <td class="green-space" id="space38"></td>
+                                    <td class="yellow-space" id="space39"></td>
+                                    <td class="green-space" id="space40"></td>
+                                    <td class="yellow-space" id="space41"></td>
+                                    <td class="green-space" id="space42"></td>
+                                </tr>
+                                <tr>
+                                    <td class="yellow-space">43</td>
+                                    <td class="green-space">44</td>
+                                    <td class="yellow-space">45</td>
+                                    <td class="green-space">46</td>
+                                    <td class="yellow-space">47</td>
+                                    <td class="green-space">48</td>
+                                    <td class="yellow-space">FINISH</td>
+                                </tr>
+                                <tr>
+                                    <td class="yellow-space" id="space43"></td>
+                                    <td class="green-space" id="space44"></td>
+                                    <td class="yellow-space" id="space45"></td>
+                                    <td class="green-space" id="space46"></td>
+                                    <td class="yellow-space" id="space47"></td>
+                                    <td class="green-space" id="space48"></td>
+                                    <td class="yellow-space" id="space49"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div style="background-color:#5e5ef1">
+                    <table id="dice">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <button class="dice" onclick="diceroll()" id="dice1">
+                                        -
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="dice" onclick="diceroll()" id="dice2">
+                                        -
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="dicetotal" style="font-size:30px; vertical-align: middle;">Total</span>
+                                </td>
+                                <td>
+                                    <span id="dicetotal" style="font-size: 50px;" class="dicetotal"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
 
-    .gameboard td {
-        border-color: black;
-        border-style: solid;
-        border-width: 1px;
-        font-family: Arial, sans-serif;
-        font-size: var(--number-text-size);
-        overflow: hidden;
-        padding: 9px 9px;
-        word-break: normal;
-    }
-
-    .gameboard th {
-        border-color: black;
-        border-style: solid;
-        border-width: 1px;
-        font-family: Arial, sans-serif;
-        font-size: var(--number-text-size);
-        font-weight: normal;
-        overflow: hidden;
-        padding: 9px 9px;
-        word-break: normal;
-    }
-
-    .gameboard .yellow-bg {
-        background-color: #ffc702;
-        border:1px solid;
-        border-color: #000000;
-        font-family: "Arial Black", Gadget, sans-serif !important;
-        font-style: italic;
-        font-weight: bold;
-        text-align: center;
-        vertical-align: middle
-    }
-
-    .gameboard .green-bg {
-        background-color: #34ff34;
-        font-family: "Arial Black", Gadget, sans-serif !important;
-        font-style: italic;
-        font-weight: bold;
-        text-align: center;
-        vertical-align: middle
-    }
-
-    .green-bg,
-    .yellow-bg {
-        padding: 2rem;
-    }
-
-    .dice {
-        background-color: #ffffff;
-        border: 3px black solid;
-        border-radius: 10px;
-        width: 75px;
-        height: 75px;
-        font-weight: bold;
-        font-size: 50px;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    .dicetotal {
-        text-align: center;
-        vertical-align: middle;
-        display: inline-block;
-        background-color: #ffffff;
-        border: 3px black solid;
-        border-radius: 10px;
-        width: 75px;
-        height: 75px;
-        font-weight: bold;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    button {
-        cursor: pointer;
-    }
-
-
-
-
-    .container {
-        height: 90vh;
-        /* margin: 7rem; */
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        margin-top: 515px;
-        height: 1px;
-        width: 1px;
-        /* right: -290px; */
-        position: absolute;
-    }
-
-    .cell {
-        color: white;
-        font-size: 1.5rem;
-        text-align: center;
-
-    }
-</style>
 <script>
+    var diceRolled = false
     var activePlayer = 1
 
-    let player1 ='<span id="player1">p1</span>';
-    let player2 ='<span id="player2">p2</span>';
+    const player1html = '<span class="player red">&nbsp;1&nbsp;</span>';
+    const player2hmtl = '<span class="player blue">&nbsp;2&nbsp;</span>';
 
     let player1Score = 1;
     let player2Score = 1;
 
-
+    function play() {
+        alert("DICE GAME!!!! Player 1 First. Click the dice to roll. Player 1 goes first.")
+        document.getElementById("space1").innerHTML = player1html + player2html 
+    }
 
     function diceroll() {
         var dice1 = document.getElementById("dice1");
@@ -152,125 +356,19 @@
         document.getElementById("player" + activePlayer + "score").value += total;
     }
 
-
     function movePlayer() {
-        player = document.getElementById(`player$active`)
+        let activePlayer = "player" + document.getElementById("activePlayer").innerHTML;
+        let currentPlace = document.getElementById("player" + document.getElementById("activePlayer").innerHTML + "score").innerHTML;
+
+        alert("Player " + document.getElementById("activePlayer").innerHTML + "needs to roll the dice");
+
+        let newPlace = "space" + document.getElementById("dicetotal").innerText;
+
+        document.getElementById(activePlayer).remove // removes player from board
+
+        document.getElementById(newPlace).innerHTML += activePlayer // add player in new space
+
     }
 </script>
-
-
-<body>
-    <div id="gameboard">
-        <table class="gameboard">
-            <thead>
-                <tr>
-                    <th class="yellow-bg" id="space1">1</th>
-                    <th class="green-bg" id="space2">2</th>
-                    <th class="yellow-bg" id="space3">3</th>
-                    <th class="green-bg" id="space4">4</th>
-                    <th class="yellow-bg" id="space5">5</th>
-                    <th class="green-bg" id="space6">6</th>
-                    <th class="yellow-bg" id="space7">7</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="green-bg" id="space8">8</td>
-                    <td class="yellow-bg" id="space9">9</td>
-                    <td class="green-bg" id="space10">10</td>
-                    <td class="yellow-bg" id="space11">11</td>
-                    <td class="green-bg" id="space12">12</td>
-                    <td class="yellow-bg" id="space13">13</td>
-                    <td class="green-bg" id="space14">14</td>
-                </tr>
-                <tr>
-                    <td class="yellow-bg" id="space15">15</td>
-                    <td class="green-bg" id="space16">16</td>
-                    <td class="yellow-bg" id="space17">17</td>
-                    <td class="green-bg" id="space18">18</td>
-                    <td class="yellow-bg" id="space19">19</td>
-                    <td class="green-bg" id="space20">20</td>
-                    <td class="yellow-bg" id="space21">21</td>
-                </tr>
-                <tr>
-                    <td class="green-bg" id="space22">22</td>
-                    <td class="yellow-bg" id="space23">23</td>
-                    <td class="green-bg" id="space24">24</td>
-                    <td class="yellow-bg" id="space25">25</td>
-                    <td class="green-bg" id="space26">26</td>
-                    <td class="yellow-bg" id="space27">27</td>
-                    <td class="green-bg" id="space28">28</td>
-                </tr>
-                <tr>
-                    <td class="yellow-bg" id="space29">29</td>
-                    <td class="green-bg" id="space30">30</td>
-                    <td class="yellow-bg" id="space31">31</td>
-                    <td class="green-bg" id="space32">32</td>
-                    <td class="yellow-bg" id="space33">33</td>
-                    <td class="green-bg" id="space34">34</td>
-                    <td class="yellow-bg" id="space35">35</td>
-                </tr>
-                <tr>
-                    <td class="green-bg" id="space36">36</td>
-                    <td class="yellow-bg" id="space37">37</td>
-                    <td class="green-bg" id="space38">38</td>
-                    <td class="yellow-bg" id="space39">39</td>
-                    <td class="green-bg" id="space40">40</td>
-                    <td class="yellow-bg" id="space41">41</td>
-                    <td class="green-bg" id="space42">42</td>
-                </tr>
-                <tr>
-                    <td class="yellow-bg" id="space43">43</td>
-                    <td class="green-bg" id="space44">44</td>
-                    <td class="yellow-bg" id="space45">45</td>
-                    <td class="green-bg" id="space46">46</td>
-                    <td class="yellow-bg" id="space47">47</td>
-                    <td class="green-bg" id="space48">48</td>
-                    <td class="yellow-bg" id="space49">49</td>
-                </tr>
-            </tbody>
-        </table>
-    
-    <div id="gamepieces">
-        <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" width="10px" id="player1">
-            <path d="M 4 2 C 4 3 3 4 2 4 C 1 4 0 3 0 2 C 0 1 1 0 2 0 C 3 0 4 1 4 2 Z">
-                <text x="2" y="2" fill="#0000ff">1</text>
-        </svg>
-        <br>
-        <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" width="10px" id="player2">
-            <path d="M 4 2 C 4 3 3 4 2 4 C 1 4 0 3 0 2 C 0 1 1 0 2 0 C 3 0 4 1 4 2 Z">
-                <text x="2" y="2" fill="#ff0000">2</text>
-        </svg>
-
-    </div>
-    <br><br><br><br>
-    <div style="background-color:#5e5ef1">
-        <table id="dice">
-            <tbody>
-                <tr>
-                    <td>
-                        <button class="dice" onclick="diceroll()" id="dice1">
-                            -
-                        </button>
-                    </td>
-                    <td>
-                        <button class="dice" onclick="diceroll()" id="dice2">
-                            -
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <span class="dicetotal" style="font-size:30px; vertical-align: middle;">Total</span>
-                    </td>
-                    <td>
-                        <span id="dicetotal" style="font-size: 50px;" class="dicetotal"></span>
-                    </td>
-                </tr>'
-            </tbody>
-        </table>
-
-    </div>
-</body>
 
 </html>
